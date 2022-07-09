@@ -18,6 +18,7 @@ if test ! -e "$PRODUCTION_NAME"; then
     echo "Unsupported product"
 fi
 
+rm -f .bios .product
 ln -s "$PRODUCTION_NAME" .product
 ln -s "$PRODUCTION_NAME/$BIOS_VERSION" .bios
 

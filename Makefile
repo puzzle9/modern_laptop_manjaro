@@ -26,9 +26,15 @@ check:
 
 install: acpi_override
 	cp acpi_override /boot/acpi_override
+	echo "GRUB_EARLY_INITRD_LINUX_CUSTOM=\"acpi_override\"" >>/etc/default/grub
+
+uninstall:
+	modprobe -r redmibook_wmi
+	dkms remove redmibook_wmi/1.0.1 --all
+	rm -f /boot/acpi_override
+	sed -i '/GRUB_EARLY_INITRD_LINUX_CUSTOM=\"acpi_override\"/d' /etc/default/grub
 
 grub:
-	echo "GRUB_EARLY_INITRD_LINUX_CUSTOM=\"acpi_override\"" >>/etc/default/grub
 	update-grub
 
 redmibook_wmi:
